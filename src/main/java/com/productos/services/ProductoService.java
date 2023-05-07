@@ -4,19 +4,24 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.productos.models.Producto;
 import com.productos.repositories.ProductoRepository;
 @Service
-public class ProductoService {
+public class ProductoService<E> {
 	
 	@Autowired
 	ProductoRepository productoRepository;
 	
 	public List<Producto> getAllProductos() {
 		return productoRepository.findAll();
+	}
+	
+	public Page<E> getAllProductosPaginados(Pageable pageable) {
+		return productoRepository.findAll(pageable);
 	}
 
 	public List<Producto> getAllProductosOrdenado() {
